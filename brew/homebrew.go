@@ -1,6 +1,9 @@
 package brew
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type UsesFromMacos struct {
 	str string
@@ -16,12 +19,25 @@ func (u UsesFromMacos) Name() string {
 }
 
 func (u *UsesFromMacos) UnmarshalJSON(bytes []byte) error {
-	if bytes[0] == '{' {
-		return json.Unmarshal(bytes, &u.obj)
+	var s string
+	err := json.Unmarshal(bytes, &s)
+	if err == nil {
+		u.str = s
 	} else {
-		u.str = string(bytes)
-		return nil
+		var d map[string]string
+		err := json.Unmarshal(bytes, &d)
+		if err != nil {
+			return err
+		}
+		if len(d) > 1 {
+			return fmt.Errorf("too many keys in uses_from_macos: %s", string(bytes))
+		}
+		for k, v := range d {
+			u.obj.name = k
+			u.obj.phase = v
+		}
 	}
+	return nil
 }
 
 type Revision struct {
