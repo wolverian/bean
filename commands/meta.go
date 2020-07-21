@@ -5,8 +5,7 @@ import (
 	"os"
 )
 
-type Meta struct {
-}
+type Meta struct{}
 
 func (m *Meta) FatalError(err error) int {
 	fmt.Fprintf(os.Stderr, "error: %s", err)

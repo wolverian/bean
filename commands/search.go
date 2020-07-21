@@ -1,9 +1,10 @@
 package commands
 
 import (
-	"bean/file"
 	"fmt"
 	"strings"
+
+	"github.com/wolverian/bean/file"
 )
 
 type SearchCommand struct{ Meta }

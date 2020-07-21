@@ -1,4 +1,4 @@
-module bean
+module github.com/wolverian/bean
 
 go 1.14
 

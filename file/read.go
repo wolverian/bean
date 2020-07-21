@@ -1,10 +1,11 @@
 package file
 
 import (
-	"bean/brew"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+
+	"github.com/wolverian/bean/brew"
 )
 
 const FormulaeJSONFile = "homebrew-formulae.json"

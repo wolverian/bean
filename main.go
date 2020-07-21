@@ -1,10 +1,12 @@
 package main
 
 import (
-	"bean/commands"
 	"fmt"
-	"github.com/mitchellh/cli"
 	"os"
+
+	"github.com/mitchellh/cli"
+
+	"github.com/wolverian/bean/commands"
 )
 
 func main() {
