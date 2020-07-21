@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// Meta is the common options and features for all commands.
 type Meta struct{}
 
 func (m *Meta) FatalError(err error) int {
