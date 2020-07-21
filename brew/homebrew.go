@@ -7,7 +7,10 @@ import (
 
 type UsesFromMacos struct {
 	str string
-	obj struct{ name, phase string }
+	obj struct {
+		name  string
+		phase []string
+	}
 }
 
 func (u UsesFromMacos) Name() string {
@@ -24,17 +27,29 @@ func (u *UsesFromMacos) UnmarshalJSON(bytes []byte) error {
 	if err == nil {
 		u.str = s
 	} else {
-		var d map[string]string
+		var d map[string]interface{}
 		err := json.Unmarshal(bytes, &d)
 		if err != nil {
-			return err
+			return fmt.Errorf("could not read object in uses_from_macos: %s: %w", string(bytes), err)
 		}
 		if len(d) > 1 {
 			return fmt.Errorf("too many keys in uses_from_macos: %s", string(bytes))
 		}
 		for k, v := range d {
 			u.obj.name = k
-			u.obj.phase = v
+			switch v := v.(type) {
+			case string:
+				u.obj.phase = []string{v}
+			case []interface{}:
+				for _, e := range v {
+					switch e := e.(type) {
+					case string:
+						u.obj.phase = append(u.obj.phase, e)
+					default:
+						return fmt.Errorf("can not parse element when expecting string array: %s", bytes)
+					}
+				}
+			}
 		}
 	}
 	return nil

@@ -1,6 +1,14 @@
 package brew
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
+
+type ex struct {
+	name  string
+	phase []string
+}
 
 func TestUsesFromMacos_UnmarshalJSON(t *testing.T) {
 	tests := []struct {
@@ -8,7 +16,8 @@ func TestUsesFromMacos_UnmarshalJSON(t *testing.T) {
 		args   []byte
 		wanted UsesFromMacos
 	}{
-		{"object", []byte(`{"foo": "bar"}`), UsesFromMacos{obj: struct{ name, phase string }{name: "foo", phase: "bar"}}},
+		{"object", []byte(`{"foo": "bar"}`), UsesFromMacos{obj: ex{"foo", []string{"bar"}}}},
+		{"object_array", []byte(`{"foo": ["bar", "baz"]}`), UsesFromMacos{"", ex{name: "foo", phase: []string{"bar", "baz"}}}},
 		{"string", []byte(`"foobar"`), UsesFromMacos{str: "foobar"}},
 	}
 	for _, tt := range tests {
@@ -23,8 +32,8 @@ func TestUsesFromMacos_UnmarshalJSON(t *testing.T) {
 			if u.obj.name != tt.wanted.obj.name {
 				t.Errorf("error: obj.name got=%s, wanted=%s", u.obj.name, tt.wanted.obj.name)
 			}
-			if u.obj.phase != tt.wanted.obj.phase {
-				t.Errorf("error: obj.phase got=%s, wanted=%s", u.obj.phase, tt.wanted.obj.phase)
+			if !reflect.DeepEqual(u.obj.phase, tt.wanted.obj.phase) {
+				t.Errorf("error: obj.phase got=%+v, wanted=%+v", u.obj.phase, tt.wanted.obj.phase)
 			}
 		})
 	}
