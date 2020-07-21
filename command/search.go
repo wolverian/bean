@@ -7,6 +7,7 @@ import (
 	"github.com/wolverian/bean/file"
 )
 
+// Search is a cli.Command implementation that takes an argument and looks if any available package matches that argument.
 type Search struct{ Meta }
 
 func (s *Search) Run(args []string) int {
