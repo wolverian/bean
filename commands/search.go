@@ -3,21 +3,18 @@ package commands
 import (
 	"bean/file"
 	"fmt"
-	"os"
 	"strings"
 )
 
-type SearchCommand struct{}
+type SearchCommand struct{ Meta }
 
 func (sc *SearchCommand) Run(args []string) int {
 	if len(args) != 1 {
-		fmt.Fprintln(os.Stderr, "error: not enough arguments")
-		return 1
+		return sc.FatalError(fmt.Errorf("not enough arguments"))
 	}
 	fs, err := file.ReadFormulae()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %s", err)
-		return 1
+		return sc.FatalError(err)
 	}
 	for _, f := range fs {
 		if strings.Contains(f.Name, args[0]) {
