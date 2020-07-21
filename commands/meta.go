@@ -8,6 +8,6 @@ import (
 type Meta struct{}
 
 func (m *Meta) FatalError(err error) int {
-	fmt.Fprintf(os.Stderr, "error: %s", err)
+	fmt.Fprintf(os.Stderr, "error: %s\n", err)
 	return 1
 }
