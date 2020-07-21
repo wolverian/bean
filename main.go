@@ -14,7 +14,7 @@ func main() {
 	c.Args = os.Args[1:]
 	c.Commands = map[string]cli.CommandFactory{
 		"search": func() (cli.Command, error) {
-			return &command.SearchCommand{}, nil
+			return &command.Search{}, nil
 		},
 	}
 	exitStatus, err := c.Run()

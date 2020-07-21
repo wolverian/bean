@@ -7,9 +7,9 @@ import (
 	"github.com/wolverian/bean/file"
 )
 
-type SearchCommand struct{ Meta }
+type Search struct{ Meta }
 
-func (sc *SearchCommand) Run(args []string) int {
+func (sc *Search) Run(args []string) int {
 	if len(args) != 1 {
 		return sc.FatalError(fmt.Errorf("not enough arguments"))
 	}
@@ -25,7 +25,7 @@ func (sc *SearchCommand) Run(args []string) int {
 	return 0
 }
 
-func (sc *SearchCommand) Help() string {
+func (sc *Search) Help() string {
 	return strings.TrimSpace(`
 Usage: bean search <string>
 
@@ -33,6 +33,6 @@ Usage: bean search <string>
 `)
 }
 
-func (sc *SearchCommand) Synopsis() string {
+func (sc *Search) Synopsis() string {
 	return "search formulae"
 }
