@@ -35,5 +35,5 @@ jobs:
     - name: Run golangci-lint
       uses: golangci/golangci-lint-action@v2
       with:
-        version: "1.29"
+        version: "v1.29"
 
