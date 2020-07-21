@@ -6,7 +6,7 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/wolverian/bean/commands"
+	"github.com/wolverian/bean/command"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 	c.Args = os.Args[1:]
 	c.Commands = map[string]cli.CommandFactory{
 		"search": func() (cli.Command, error) {
-			return &commands.SearchCommand{}, nil
+			return &command.SearchCommand{}, nil
 		},
 	}
 	exitStatus, err := c.Run()
