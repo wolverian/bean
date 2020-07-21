@@ -9,13 +9,13 @@ import (
 
 type Search struct{ Meta }
 
-func (sc *Search) Run(args []string) int {
+func (s *Search) Run(args []string) int {
 	if len(args) != 1 {
-		return sc.FatalError(fmt.Errorf("not enough arguments"))
+		return s.FatalError(fmt.Errorf("not enough arguments"))
 	}
 	fs, err := file.ReadFormulae()
 	if err != nil {
-		return sc.FatalError(err)
+		return s.FatalError(err)
 	}
 	for _, f := range fs {
 		if strings.Contains(f.Name, args[0]) {
@@ -25,7 +25,7 @@ func (sc *Search) Run(args []string) int {
 	return 0
 }
 
-func (sc *Search) Help() string {
+func (s *Search) Help() string {
 	return strings.TrimSpace(`
 Usage: bean search <string>
 
@@ -33,6 +33,6 @@ Usage: bean search <string>
 `)
 }
 
-func (sc *Search) Synopsis() string {
+func (s *Search) Synopsis() string {
 	return "search formulae"
 }
