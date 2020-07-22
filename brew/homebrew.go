@@ -98,12 +98,31 @@ type Formula struct {
 	Pinned                  bool            `json:"pinned"`
 	Outdated                bool            `json:"outdated"`
 }
+
+func (f Formula) String() string {
+	return fmt.Sprintf("%s: %s\n%s", f.Name, f.Versions, f.Desc)
+}
+
 type Versions struct {
 	Stable string `json:"stable"`
 	Devel  string `json:"devel"`
 	Head   string `json:"head"`
 	Bottle bool   `json:"bottle"`
 }
+
+func (v Versions) String() string {
+	var s string
+	if v.Bottle {
+		s = fmt.Sprintf("%s (bottled)", v.Stable)
+	} else {
+		s = v.Stable
+	}
+	if v.Head != "" {
+		s += ", HEAD"
+	}
+	return s
+}
+
 type Stable struct {
 	URL      string   `json:"url"`
 	Tag      string   `json:"tag"`

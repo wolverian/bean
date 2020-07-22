@@ -102,6 +102,5 @@ func must(dir string, err error) string {
 	if err != nil {
 		panic(err)
 	}
-	println(dir)
 	return dir
 }
