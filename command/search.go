@@ -14,14 +14,12 @@ func (s *Search) Run(args []string) int {
 	if len(args) != 1 {
 		return s.FatalError(fmt.Errorf("not enough arguments"))
 	}
-	fs, err := file.ReadFormulae()
+	fs, err := file.FindAll(args[0], strings.Contains)
 	if err != nil {
-		return s.FatalError(err)
+		return s.FatalError(fmt.Errorf("no such formula"))
 	}
 	for _, f := range fs {
-		if strings.Contains(f.Name, args[0]) {
-			fmt.Println(f.Name)
-		}
+		fmt.Println(f.Name)
 	}
 	return 0
 }
