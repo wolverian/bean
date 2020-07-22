@@ -26,7 +26,7 @@ func (s *Show) Run(args []string) int {
 		return s.FatalError(err)
 	}
 	for _, f := range fs {
-		if strings.Contains(f.Name, args[0]) {
+		if strings.EqualFold(f.Name, args[0]) {
 			fmt.Println(f)
 			return 0
 		}
