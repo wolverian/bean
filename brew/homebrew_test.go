@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+//nolint:unused
 type ex struct {
 	name  string
 	phase []string
