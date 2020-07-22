@@ -19,6 +19,9 @@ func main() {
 		"show": func() (cli.Command, error) {
 			return &command.Show{}, nil
 		},
+		"add": func() (cli.Command, error) {
+			return &command.Add{}, nil
+		},
 	}
 	exitStatus, err := c.Run()
 	if err != nil {
