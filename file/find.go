@@ -3,35 +3,37 @@ package file
 import (
 	"fmt"
 
-	"github.com/wolverian/bean/brew"
+	"github.com/wolverian/bean/item"
 )
 
-func FindOne(name string, comp func(name, search string) bool) (brew.Formula, error) {
-	fs, err := ReadFormulae()
-	if err != nil {
-		return brew.Formula{}, err
-	}
-	for _, f := range fs {
-		if comp(f.Name, name) {
-			return f, nil
-		}
-	}
-	return brew.Formula{}, fmt.Errorf("no such formula")
-}
+type CompFunc func(name, search string) bool
 
-func FindAll(name string, comp func(name, search string) bool) ([]brew.Formula, error) {
+func FindAll(substr string, comp CompFunc) ([]item.Interface, error) {
+	var found []item.Interface
+
 	fs, err := ReadFormulae()
 	if err != nil {
 		return nil, err
 	}
-	var found []brew.Formula
 	for _, f := range fs {
-		if comp(f.Name, name) {
+		if comp(f.CanonicalName(), substr) {
 			found = append(found, f)
 		}
 	}
+
+	cs, err := ReadCasks()
+	if err != nil {
+		return nil, err
+	}
+	for _, c := range cs {
+		if comp(c.CanonicalName(), substr) {
+			found = append(found, c)
+		}
+	}
+
 	if len(found) == 0 {
 		return nil, fmt.Errorf("no such formula")
 	}
+
 	return found, nil
 }

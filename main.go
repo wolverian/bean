@@ -16,6 +16,9 @@ func main() {
 		"search": func() (cli.Command, error) {
 			return &command.Search{}, nil
 		},
+		"find": func() (cli.Command, error) {
+			return &command.Search{}, nil
+		},
 		"show": func() (cli.Command, error) {
 			return &command.Show{}, nil
 		},

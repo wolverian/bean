@@ -75,7 +75,7 @@ type Formula struct {
 	Aliases                 []string        `json:"aliases"`
 	VersionedFormulae       []string        `json:"versioned_formulae"`
 	Desc                    string          `json:"desc"`
-	License                 string          `json:"license"`
+	License                 []string        `json:"license"`
 	Homepage                string          `json:"homepage"`
 	Versions                Versions        `json:"versions"`
 	Urls                    Urls            `json:"urls"`
@@ -155,7 +155,7 @@ type Bottle struct {
 }
 type Requirements struct {
 	Name     string   `json:"name"`
-	Cask     string   `json:"cask"`
+	Cask     string   `json:"cask.go"`
 	Download string   `json:"download"`
 	Version  string   `json:"version"`
 	Contexts []string `json:"contexts"`

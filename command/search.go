@@ -16,10 +16,10 @@ func (s *Search) Run(args []string) int {
 	}
 	fs, err := file.FindAll(args[0], strings.Contains)
 	if err != nil {
-		return s.FatalError(fmt.Errorf("no such formula"))
+		return s.FatalError(err)
 	}
 	for _, f := range fs {
-		fmt.Println(f.Name)
+		fmt.Println(f.CanonicalName())
 	}
 	return 0
 }
